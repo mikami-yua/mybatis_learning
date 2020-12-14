@@ -1,0 +1,51 @@
+mybatis
+
+character 1
+	1.三层架构
+		界面层：和用户打交道（jsp，servlet，servlet）
+		业务逻辑层：接收数据，计算逻辑
+		数据访问层（持久层）：访问数据库，对数据库进行
+
+		三层对应的包
+			界面层：controller
+			业务逻辑层：service
+			数据访问层：dao
+		三层对应的框架
+			界面层：servlet------springmvc
+			业务逻辑层：service类------spring
+			数据访问层：dao类-----mybatis
+	
+	2.框架
+		框架是一个模板（Framework）
+			1.已经规定好了一些条款和内容
+			2.可以加入自己的东西
+			3.定义好了一些可用的功能
+			4.是一个半成品的软件，基础功能是可以重复使用的
+		框架的特点
+			不能做所有事情
+			针对某个领域有效（mybatis对数据库有效）
+			框架是写好功能的软件
+
+	3.mybatis能做什么
+		提供了访问数据库的基本功能。持久层的框架。
+		一个框架。一个SQL mapping framework for java
+			1.SQL mapping sql映射
+				数据库表中的一行数据映射为一个java对像
+			2.data access object（dao）数据访问
+				对数据库的增删改查
+		
+		功能：	
+			创建 Connection，Statement，ResultSet的能力，不用开发者创建了
+			提供了执行sql的能力
+			提供了循环sql，把sql结果转为list集合的能力
+			提供关闭资源的能力
+		
+		开发者需要做：
+			提供sql语句
+
+			开发者提供sql语句，mybatis执行，开发人员得到list集合或java对象
+		
+		mybatis是一个sql映射框架，一个增强的jdbc，只需要写好sql即可。不必关心资源的创建和销毁。重复劳动不需要做
+
+
+	
