@@ -4,7 +4,7 @@ import org.example.domain.Student;
 
 import java.util.List;
 
-/**
+/**第二步，写接口
  * 接口操作student表
  */
 public interface StudentDao {

@@ -26,6 +26,7 @@
       <scope>test</scope>
     </dependency>
 
+    <!--第一步-->
     <!--mybatis的依赖-->
     <dependency>
       <groupId>org.mybatis</groupId>
