@@ -47,5 +47,38 @@ character 1
 		
 		mybatis是一个sql映射框架，一个增强的jdbc，只需要写好sql即可。不必关心资源的创建和销毁。重复劳动不需要做
 
+主要类的介绍
+    Resources：mybatis中的一个类，负责读取主配置文件
+         InputStream in= Resources.getResourceAsStream("mybatis.xml");
 
-	
+    SqlSessionFactoryBuilder:创建工厂对象
+        SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+
+    【重要】SqlSessionFactory：重量级对象（创建这个对象耗时长，使用资源多）
+        在整个项目中有一个这个对象就够用了。
+        对象本身是一个接口。接口的实现类:DefaultSqlSessionFactory
+        作用：
+            SqlSession sqlSession=factory.openSession();
+            通过openSession方法获得一个sqlSession对象。
+
+            openSession方法说明：
+                openSession（）：无参，获取非自动提交事物的SqlSession对象
+                openSession（true）：获取自动提交事物的SqlSession对象
+                openSession（false）：获取非自动提交事物的SqlSession对象
+
+    SqlSession：
+        是个接口，定义了操作数据库的方法：selectOne（），selectList（），insert（），update（），delete（），commit(),rollback()
+        实现类：DefaultSqlSession
+        使用要求：
+            不是线程安全的，需要在方法内部使用，在执行sql语句之前，使用openSession()获取SqlSession对象。
+            在执行完sql语句后需要关闭它。sqlSession.close();这样能保证使用是线程安全的
+
+深入理解参数
+    执行sql：insert into student values(#{id},#{name},#{email},#{age})里面需要有数据，数据来源于哪里
+        数据来源于程序中组织的student对象，把数据从代码部分传递到文件部分。
+        怎么把这些参数传到文件中，mybatis可以怎么用这些数据
+    传入参数：从java代码中，把数据传入到mapper文件的sql语句中。
+
+    1.parameterType：写在mapper文件中的一个数据，表示dao接口中方法参数的数据类型
+        ps. public Student selectStudentById(Integer id) 想知道id是Integer数据类型的，
+        需要通过parameterType告诉mybatis，查询时这个参数是个整型值。
