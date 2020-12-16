@@ -12,7 +12,51 @@
 
             没有也可以，通过反射机制mybatis能找到，接口参数的数据类型
             可以没有，一般也不写
+
+            使用#{}之后，mybatis执行sql是使用jdbc中的preparedStatement对像，由mybatis执行下面的代码
+                1.mybatis创建Connection，PreparedStatement对象
+                    String sql="select id,name,email,age from student where id=?";
+                    PreparedStatement pst=conn.preparedStatement(sql);
+                    pst.setInt(1,1001);
+                2.执行sql封装为resultType="org.example.domain.Stident"对象
+                    ResultSet rs=ps.executeQuery();
+                    While(rs.next()){
+                        //从数据库取数据，存到一个java对象的属性中
+                        Student student=new Student（）；
+                        student.setId(rs.getInt("id"));
+                        student.setName(rs.getString("name"));
+                        student.setEmail(rs.getString("email"));
+                        student.setAge(rs.getInt("age"));
+                    }
+                    return student;//给了dao方法调用的返回值
         -->
         select id,name,email,age from student where id=#{id}
+    </select>
+
+    <!--多个参数使用param命名-->
+    <select id="selectMultiParam" resultType="org.example.domain.Student">
+        select id,name,email,age from student where name=#{myname} or age=#{myage}
+    </select>
+
+    <!--
+    使用对象作为参数,使用java对象的属性值，作为实际值
+    语法格式：#{属性名，javaType=类型名称，jdbcType=数据类型}（完整的语法格式很少用）
+    javaType：指java中的属性数据类型
+    jdbcType：在数据库中的数据类型
+
+    简化的格式：
+    #{属性名} javaType，jdbcType反射可以获取
+    -->
+    <select id="selectMultiObject" resultType="org.example.domain.Student">
+        select id,name,email,age from student where name=#{paramName} or age=#{paramAge}
+    </select>
+
+    <select id="selectMultiStudent" resultType="org.example.domain.Student">
+        select id,name,email,age from student where name=#{name} or age=#{age}
+    </select>
+
+    <!--使用$占位符-->
+    <select id="selectUse$" resultType="org.example.domain.Student">
+        select * from student where name=${myname}
     </select>
 </mapper>

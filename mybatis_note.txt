@@ -82,3 +82,18 @@ character 1
     1.parameterType：写在mapper文件中的一个数据，表示dao接口中方法参数的数据类型
         ps. public Student selectStudentById(Integer id) 想知道id是Integer数据类型的，
         需要通过parameterType告诉mybatis，查询时这个参数是个整型值。
+    2.简单类型
+         一个简单类型的参数：mybatis把java的基本类型和string都叫简单类型
+         mapper文件获取简单类型的一个参数的值，使用 #{任意字符}
+    3.多个参数-使用@Param命名参数
+        接口 public List<Student> selectMulitParam(String name,Integer age)
+        使用@Param（"参数名"） String name
+            public List<Student> selectMulitParam(@Param("myname") String name,@Param("myage") Integer age)
+        mapper文件
+            <select>
+                select * from student where name=#{myname} or age=#{myage}
+            </select>
+    4. #和$的区别
+        #:告诉mybatis使用实际的参数值代替。并使用prepareStatement对象执行sql语句，#{。。。}代替sql中的？
+        $:能用#的地方都可以用#. $做的是连接和替换。使用Statement把sql语句和$()的内容连接起来
+        $使用替换，没有使用？替代。相当于sql语句的字符串拼接。statement比prepareStatement低。且会由sql注入的问题
