@@ -63,13 +63,21 @@ public class TestMyBatis {
     }
 
     @Test
-    public void testSelectUse$(){
+    public void testSelectUse$ (){
         SqlSession sqlSession=MyBatisUtils.getSqlSession();
         StudentDao dao=sqlSession.getMapper(StudentDao.class);
-        Student student=new Student();
-        student.setName("张三");
-        student.setAge(28);
-        List<Student> students = dao.selectMultiStudent(student);
+        List<Student> students = dao.selectUse$("'李四'");//Preparing: select * from student where name=李四 出错
+        for (Student stu:students){
+            System.out.println(stu);
+        }
+        sqlSession.close();
+    }
+
+    @Test
+    public void testSelectUse$OrderBy (){
+        SqlSession sqlSession=MyBatisUtils.getSqlSession();
+        StudentDao dao=sqlSession.getMapper(StudentDao.class);
+        List<Student> students = dao.selectUse$OrderBy("email");
         for (Student stu:students){
             System.out.println(stu);
         }

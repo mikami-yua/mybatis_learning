@@ -97,3 +97,34 @@ character 1
         #:告诉mybatis使用实际的参数值代替。并使用prepareStatement对象执行sql语句，#{。。。}代替sql中的？
         $:能用#的地方都可以用#. $做的是连接和替换。使用Statement把sql语句和$()的内容连接起来
         $使用替换，没有使用？替代。相当于sql语句的字符串拼接。statement比prepareStatement低。且会由sql注入的问题
+            用户可能会获取敏感数据或者删除数据库
+        $可以替换表名或者列名，能确定数据是安全的也可以使用
+
+        1.#使用？在sql语句中占位的，使用prepareStatement对象执行sql语句，效率高
+        2.#可以避免sql注入
+        3.$不使用占位符，使用字符串连接的方式，使用Statement执行sql。
+
+输出结果
+    mybatis执行sql之后得到java对象
+
+    1.resultType：
+        结果类型，指sql语句执行完之后数据转换为的java对象 java类型是任意的
+        类型的值：1.类型的全限定名称【建议使用这个java.lang.Integer】    2.别名
+
+        处理方式：
+            1.mybatis执行sql语句，mybatis执行无参数构造方法，创建对象
+            2.mybatis把ResultSet指定列值赋给同名属性
+
+            <select id="selectMultiObject" resultType="org.example.domain.Student">
+                    select id,name,email,age from student where name=#{paramName} or age=#{paramAge}
+            </select>
+
+        定义自定义类型的别名：
+            1.在mybatis主配置文件中定义，使用<typeAlias>定义
+            2.可以在resultType使用
+
+    2.resultMap：结果映射
+        用来指定列名和java对象属性的对应关系
+
+        1.自定义列和属性的关系（不想遵循同名规则）
+        2.列名和属性名不同时一定需要使用resultMap

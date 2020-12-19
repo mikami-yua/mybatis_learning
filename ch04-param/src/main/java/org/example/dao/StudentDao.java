@@ -45,4 +45,11 @@ public interface StudentDao {
      * @return
      */
     List<Student> selectUse$(@Param("myname") String name);
+
+    /**
+     * $可以替换表名或者列名
+     * @param colName
+     * @return
+     */
+    List<Student> selectUse$OrderBy(@Param("colName") String colName);
 }

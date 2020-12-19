@@ -59,4 +59,9 @@
     <select id="selectUse$" resultType="org.example.domain.Student">
         select * from student where name=${myname}
     </select>
+    
+    <!--$替换列名-->
+    <select id="selectUse$OrderBy" resultType="org.example.domain.Student">
+        select * from student order by ${colName}
+    </select>
 </mapper>
