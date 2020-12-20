@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.dao.StudentDao">
+    <!--if
+        <if test="使用java对象的属性值作为判断条件  语法  属性=xxx">
+    -->
+    <select id="selectStudentIf" resultType="org.example.domain.Student">
+        <!--主sql  不变的部分
+         1=1是为了防止后面的拼接导致语法错误
+        -->
+        select id,name,age,email from student
+        where 1=1
+        <if test="name !=null and name !='' ">
+            name=#{name}
+        </if>
+        <if test="age>0">
+            or age>#{age}
+        </if>
+    </select>
+
+    <!--where-->
+    <select id="selectStudentWhere" resultType="org.example.domain.Student">
+        select id,name,age,email from student
+        <where>
+            <if test="name !=null and name !='' ">
+                name=#{name}
+            </if>
+            <if test="age>0">
+                or age>#{age}
+            </if>
+        </where>
+    </select>
+    
+    <!--foreach用法1  List<Integer>-->
+    <select id="selectStudentForeach1" resultType="org.example.domain.Student">
+        select * from student where id in
+        <foreach collection="list" item="myid" open="(" close=")" separator=",">
+            #{myid}
+        </foreach>
+    </select>
+
+    <!--foreach用法2 -->
+    <select id="selectStudentForeach2" resultType="org.example.domain.Student">
+        select * from student where id in
+        <foreach collection="list" item="stu" open="(" close=")" separator=",">
+            #{stu.id}
+        </foreach>
+    </select>
+
+    <!--小括号的另一种加法
+
+    <select id="selectStudentForeach2" resultType="org.example.domain.Student">
+        select * from student where id in (
+        <foreach collection="list" item="stu"separator=",">
+            #{stu.id}
+        </foreach>
+        )
+    </select>
+
+    -->
+</mapper>

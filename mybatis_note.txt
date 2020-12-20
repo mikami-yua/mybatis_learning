@@ -128,3 +128,29 @@ character 1
 
         1.自定义列和属性的关系（不想遵循同名规则）
         2.列名和属性名不同时一定需要使用resultMap
+
+动态sql
+    sql语句是变化的，可以根据条件获取到不同的sql语句。主要是where的部分发生变化
+
+    实现使用的是mybatis提供的标签<if> <where> <foreach>
+        <if>判断条件
+            语法：<if test="判断java对象的属性值">
+                    部分sql语句
+                  </if>
+        <where>标签
+            同于包含多个if的，当多个if有一个成立时，where标签会自动增加一个where关键字。并去掉if中多余的and/or
+        <foreach>
+            循环java中的数组，list集合的。主要用在sql的in语句中
+
+            学生id是 1001，1002，1003的三个学生
+            select * from student in (1001,1002,1003)
+
+            语法：<foreach collection="" item="" open="" close="" separator="">
+
+                  </foreach>
+
+                  collectiom:表示接口中的方法参数的类型，数组使用array，list集合使用list
+                  item：自定义的表示数组或集合成员的变量
+                  open：循环开始时的字符
+                  close：循环结束时的字符
+                  separator：集合成员之间的分隔符

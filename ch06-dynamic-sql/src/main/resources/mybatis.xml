@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--定义别名-->
+    <typeAliases>
+        <!--
+        第一种方式
+        可以指定一个自定义类型的别名
+        type:自定义类型的全限定名称
+        alias：自定义别名
+        <typeAlias type="org.example.domain.Student" alias="stu" />
+        <typeAlias type="org.example.vo.ViewStudent" alias="vstu" />
+        -->
+        <!--实际开发种这种方式使用多
+        第二种方式
+        name:是包名    这个包中所有类，类名就是别名（类名不区分大小写）
+        -->
+        <package name="org.example.vo"/>
+        
+    </typeAliases>
+
+
+    <environments default="mydev">
+        <environment id="mydev">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/><!--驱动-->
+                <property name="url" value="jdbc:mysql://localhost:3306/springdb"/><!--连接数据库的url字符串-->
+                <property name="username" value="root"/>
+                <property name="password" value="333"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--sql映射文件的位置-->
+    <mappers>
+        <mapper resource="org/example/dao/StudentDao.xml"/>
+    </mappers>
+</configuration>
