@@ -154,3 +154,5 @@ character 1
                   open：循环开始时的字符
                   close：循环结束时的字符
                   separator：集合成员之间的分隔符
+        <sql>复用sql语句
+            先定义在使用

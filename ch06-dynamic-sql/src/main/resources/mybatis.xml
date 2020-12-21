@@ -28,7 +28,23 @@
 
     <environments default="mydev">
         <environment id="mydev">
+            <!--
+            transactionManager:mybatis提交事务，回滚事物的方法
+                type：处理事物的类型
+                    1.JDBC：表示调用jdbc中的connection对象进行commit或者rollback
+                    2.MANAGED：把mybatis的事物处理委托给其他容器（一个服务器软件，框架）
+
+            -->
             <transactionManager type="JDBC"/>
+            <!--
+            dataSource:表示数据源，java体系中，规定实现了javax.sql.DAtaSource接口的都叫数据源
+                数据源表示连接到connection对象的
+            type：指定数据源类型
+                1.POOLED：使用连接池，myabtis会创建PooledDataSource类
+                2.UPOOLED：不使用连接池，在每次执行sql的时候先创建连接，执行sql，再关闭连接
+                    mybatis会创建一个UnPooledDataSource，管理Connection对象
+                3.JNDI：java命名和目录服务（很少用了）
+            -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/><!--驱动-->
                 <property name="url" value="jdbc:mysql://localhost:3306/springdb"/><!--连接数据库的url字符串-->
