@@ -1,5 +1,6 @@
 package org.example;
 
+import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.session.SqlSession;
 import org.example.dao.StudentDao;
 import org.example.domain.Student;
@@ -102,6 +103,22 @@ public class TestMyBatis {
 
         List<Student> slist=dao.selectStudentForeach2(students);
         for (Student stu:slist){
+            System.out.println(stu);
+        }
+
+    }
+
+    @Test
+    public void testSelectAllPageHelper(){
+
+        SqlSession sqlSession= MyBatisUtils.getSqlSession();
+        StudentDao dao= sqlSession.getMapper(StudentDao.class);//就这一句就可以创建接口的实现对象
+        /*
+        加上pagehelper的方法分页
+         */
+        PageHelper.startPage(1,3);//从第一页开始，每页3行
+        List<Student> students=dao.selectAll();
+        for (Student stu:students){
             System.out.println(stu);
         }
 

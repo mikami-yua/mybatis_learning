@@ -156,3 +156,30 @@ character 1
                   separator：集合成员之间的分隔符
         <sql>复用sql语句
             先定义在使用
+
+数据库的属性配置文件
+    属性配置文件：把数据库连接信息放到一个单独的文件，和mybatis主配置文件分开，便于修改和保持处理多个数据库的信息
+        1.再resources目录下定义一个属性配置文件 xxxxx.properties
+            属性配置文件中定于数据，格式：key=value
+                jdbc.driver=com.mysql.jdbc.Driver
+        2.在mybatis的主配置文件中使用<property>指定文件位置
+            在需要的地方 ${key}
+
+    mapper文件使用package指定路径
+        <!--第一种方式，使用多行语句指定多个mapper文件
+        <mapper resource="org/example/dao/StudentDao.xml"/>
+        <mapper resource="org/example/dao/OrderDao.xml"/>-->
+
+        <!--第二种方式，使用包名
+        name是mapper文件所在的包名
+        这个包中的所有xml文件一次都能加载给mybatis文件
+
+        使用package的要求
+            mapper文件的名称需要和接口名称一样
+            mapper文件和接口在同一个目录下
+        -->
+        <package name="org.example.dao"/>
+
+数据分页：pagehelper
+    数据分页的：表中数据分批次取
+    在mybatis中实现limit语句

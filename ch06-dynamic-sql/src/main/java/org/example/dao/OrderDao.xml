@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.example.dao.StudentDao">
+<mapper namespace="org.example.dao.OrderDao">
     <!--定义sql的片段-->
     <sql id="studentSql">
         select id,name,age,email from student
@@ -66,9 +66,4 @@
     </select>
 
     -->
-    
-    <!--pagehelper分页数据-->
-    <select id="selectAll" resultType="org.example.domain.Student">
-        <include refid="studentSql" />order by id
-    </select>
 </mapper>

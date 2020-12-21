@@ -5,7 +5,7 @@ import org.example.domain.Student;
 
 import java.util.List;
 
-public interface StudentDao {
+public interface OrderDao {
 
     /**
      * 使用if标签的动态sql
@@ -35,10 +35,4 @@ public interface StudentDao {
      * @return
      */
     List<Student> selectStudentForeach2(List<Student> sdlist);
-
-    /**
-     * 使用pagehelper分页数据
-     * @return
-     */
-    List<Student> selectAll();
 }
